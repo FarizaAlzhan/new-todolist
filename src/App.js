@@ -66,6 +66,18 @@ function App() {
     setItems(newArray);
   };
 
+
+  
+  const handleItemImportant = (key) => {
+    const newArray = items.map((item) => {
+      if (item.key === key) {
+        return { ...item, isImportant: !item.isImportant };
+      } else return item;
+    });
+
+    setItems(newArray);
+  };
+
   
 
   const handleChangeStatus = (type) => {
@@ -134,12 +146,13 @@ function App() {
             className="list-group-item"
             
           >
-            <span className={`todo-list-item ${item.isDone ? "important" : ""}`}>
+            <span className={`todo-list-item ${item.isDone ? "done" : ""}${item.isImportant ? "important" : ""}`}>
               <span  onClick={() => handleItemDone(item.key)}className="todo-list-item-label">{item.label}</span>
 
               <button
                 type="button"
-                className="btn btn-outline-success btn-sm float-right"
+                onClick={() => handleItemImportant(item.key)}
+                className="btn btn-outline-success btn-sm float-right "
               >
                 <i className="fa fa-exclamation" />
               </button>
